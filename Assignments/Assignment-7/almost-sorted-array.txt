@@ -1,0 +1,87 @@
+Q. What is the best sorting algorithm for an almost sorted array?
+Ans:-
+Many sorting algorithms are available, but the one which is best suited for the 
+almost sorted array is the insertion sort.
+
+Time complexity : The time complexity of an​ insertion sort is O(n) for almost 
+sorted data.
+
+In the code below, we will compare the execution time for the merge sort and 
+insertion sort of an almost sorted array.
+We will be using the Python timeit module to compute the time for each algorithm​.
+
+Code :
+
+#Importing Library
+import timeit
+
+Insertion = '''
+def insertion_sort():
+    arr = [1, 2, 4, 3]
+    for i in range(1, len(arr)):
+        # Set key:
+        key = arr[i]
+
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            # Swap:
+            arr[j + 1] = arr[j]
+            arr[j] = key
+            
+            # Decrement 'j':
+            j -= 1
+'''
+
+Merge = '''
+def mergeSort():
+    myList = [1, 2, 4, 3]
+    if len(myList) > 1:
+        mid = len(myList) / 2
+        left = myList[:mid]
+        right = myList[mid:]
+
+        # Recursive call on each half
+        mergeSort(left)
+        mergeSort(right)
+
+        # Two iterators for traversing the two halves
+        i = 0
+        j = 0
+        
+        # Iterator for the main list
+        k = 0
+        
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+              # The value from the left half has been used
+              myList[k] = left[i]
+              # Move the iterator forward
+              i += 1
+            else:
+                myList[k] = right[j]
+                j += 1
+            # Move to the next slot
+            k += 1
+
+        # For all the remaining values
+        while i < len(left):
+            myList[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            myList[k]=right[j]
+            j += 1
+            k += 1
+'''
+
+print("Insertion sort:")
+print(timeit.timeit(stmt=Insertion,number=10000000))
+print("Merge sort:")
+print(timeit.timeit(stmt=Merge,number=10000000))
+
+Output:-
+Insertion sort:
+0.822587798000086
+Merge sort:
+1.265180944000008
