@@ -7,10 +7,10 @@ const heapify = (arr, N, i) => {
   let l = 2 * i + 1; // left = 2*i + 1
   let r = 2 * i + 2; // right = 2*i + 2
 
-  // If left child is larger than root
+  // If left child is smaller than root
   if (l < N && arr[l] < arr[smallest]) smallest = l;
 
-  // If right child is larger than smallest so far
+  // If right child is smaller than smallest so far
   if (r < N && arr[r] < arr[smallest]) smallest = r;
 
   // If smallest is not root
